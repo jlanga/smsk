@@ -18,14 +18,13 @@ The idea is to create a workflow with of snakefiles, resolve dependencies with p
 2. Create a Python(3) environment:
     ```sh
     virtualenv --python=python3.5 bin/py3
-    ln -s py3/bin/activate bin/activate
     ```
 
 
-3. Execute `bin/install_brew.sh` script download homebrew:
+3. Execute `scripts/install_brew.sh` to download homebrew:
 
     ```sh
-    bash bin/install_homebrew.sh
+    bash scripts/install_brew.sh
     ```
 
 4. Activate the environment:
