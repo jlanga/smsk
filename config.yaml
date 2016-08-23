@@ -1,0 +1,6 @@
+samples:
+    A: data/samples/A.fastq
+    B: data/samples/B.fastq
+
+urls:
+    tarball: https://bitbucket.org/snakemake/snakemake/downloads/snakemake-tutorial-data.tar.gz
