@@ -17,7 +17,7 @@ The idea is to create a workflow with of snakefiles, resolve dependencies with p
 
 2. Create a Python(3) environment:
     ```sh
-    virtualenv --python=python3.5 bin/py3
+    virtualenv --python=python3 bin/py3
     ```
 
 

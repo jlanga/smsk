@@ -9,6 +9,8 @@ pip install \
 
 
 ## 2. Homebrew packages
+brew update
+
 brew install \
     graphviz
 
