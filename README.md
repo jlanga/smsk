@@ -1,5 +1,7 @@
 # smsk: A Snakemake skeleton to jumpstart projects
 
+[![Build Status](https://travis-ci.org/jlanga/smsk.svg?branch=master)](https://travis-ci.org/jlanga/smsk)
+
 ## 1. Description
 
 This is a small skeleton to create Snakemake workflows. [Snakemake](https://bitbucket.org/snakemake/snakemake/wiki/Home) "is a workflow management system that aims to reduce the complexity of creating workflows by providing a fast and comfortable execution environment, together with a clean and modern specification language in python style."
