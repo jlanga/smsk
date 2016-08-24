@@ -1,11 +1,15 @@
+shell.prefix("set -euo pipefail;")
 configfile: "config.yaml"
+
+
+snakefiles = "scripts/snakefiles/"
+
+include: snakefiles + "folders.snakefile"
+include: snakefiles + "clean.snakefile"
+include: snakefiles + "raw.snakefile"
+include: snakefiles + "map.snakefile"
+include: snakefiles + "call.snakefile"
 
 rule all:
     input:
-        "doc/report.html"
-
-include: "scripts/snakefiles/clean.snakefile"
-include: "scripts/snakefiles/raw.snakefile"
-include: "scripts/snakefiles/map.snakefile"
-include: "scripts/snakefiles/call.snakefile"
-include: "scripts/snakefiles/report.snakefile"
+        call_doc + "call.html"
