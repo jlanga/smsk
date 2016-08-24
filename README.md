@@ -8,36 +8,25 @@ The idea is to create a workflow with of snakefiles, resolve dependencies with p
 
 ## 2. First steps
 
-1. Clone this repo:
+1. Installation
 
     ```sh
-    git clone https://github.com/jlanga/smsk.git my_project
-    cd my_project
+    git clone https://github.com/jlanga/smsk.git my_project # Clone
+    virtualenv --python=python3 bin/py3                     # Create an environment
+    bash scripts/install_brew.sh                            # Download linuxbrew
     ```
 
-2. Create a Python(3) environment:
-    ```sh
-    virtualenv --python=python3 bin/py3
-    ```
-
-
-3. Execute `scripts/install_brew.sh` to download homebrew:
-
-    ```sh
-    bash scripts/install_brew.sh
-    ```
-
-4. Activate the environment:
+2. Activate the environment (`deactivate` to deactivate):
     ```sh
     source bin/py3/bin/activate
     ```
 
-5. Install software and packages via pip and homebrew :
+3. Install software and packages via pip and homebrew (edit whatever is necessary):
 
     ```sh
     bash scripts/install_software.sh
     ```
-6. Execute the test files:
+4. Execute the pipeline:
 
     ```{sh}
     snakemake \
@@ -64,7 +53,23 @@ smsk
 
 
 
-## 4. Configuration file
+## 4. Writting workflows considerations
+
+- The workflow should be written in the main `Snakefile` and all the subworkflows in `scripts/snakefiles`.
+
+- Split into different snakefiles as much as possible. This way code supervision is more bearable and you can recycle them for other projects.
+
+- Configuration for software, samples, etcetera, should be written in the `config.yaml` (instead of hardwritting then somewhere in a 1000 lines script).
+
+- Install as many possible packages from `brew` and `pip` instead of using `apt`/`apt-get`: software is more recent this way, and you don't have to unzip tarballs. This way your workflow is more reproducible. The problem I see is that you cannot specify exact versions in `brew`.
+
+- Use as much as possible `temp()` and `protected()` so you save space and also protect yourself from deleting everything.
+
+- Pipe and compress as much as possible.
+
+- End each subworkflow with a report for your own sanity.
+
+- Use in command line applications long flags (`wget --continue $URL`): this way it is more readable. The computer does not care.
 
 
 
