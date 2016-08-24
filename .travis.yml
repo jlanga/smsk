@@ -1,5 +1,7 @@
 dist: trusty
 
+language: bash
+
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y build-essential curl git python-setuptools ruby python3-pip
