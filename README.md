@@ -71,7 +71,7 @@ smsk
 
 - Use the `scripts/snakefiles/raw.snakefile` to get/link your raw data, databases, etcetera. You should be careful when cleaning this folder.
 
-- Configuration for software, samples, etcetera, should be written in the `config.yaml` (instead of hardwritting then somewhere in a 1000 lines script).
+- Configuration for software, samples, etcetera, should be written in the `config.yaml` (instead of hardwritting them somewhere in a 1000 line script).
 
 - `shell.prefix("set -euo pipefail;")` in the first line of the Snakefile makes the entire workflow to stop in case of even a warning.
 
