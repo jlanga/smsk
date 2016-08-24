@@ -12,8 +12,9 @@ The idea is to create a workflow with of snakefiles, resolve dependencies with p
 
     ```sh
     git clone https://github.com/jlanga/smsk.git my_project # Clone
+    cd my_project
     virtualenv --python=python3 bin/py3                     # Create an environment
-    bash scripts/install_brew.sh                            # Download linuxbrew
+    git clone https://github.com/Linuxbrew/brew.git         # Download linuxbrew
     ```
 
 2. Activate the environment (`deactivate` to deactivate):
@@ -28,9 +29,8 @@ The idea is to create a workflow with of snakefiles, resolve dependencies with p
     ```
 4. Execute the pipeline:
 
-    ```{sh}
-    snakemake \
-        --cores 8
+    ```sh
+    snakemake
     ```
 
 
