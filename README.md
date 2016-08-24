@@ -29,7 +29,7 @@ The idea is to create a workflow with of snakefiles, resolve dependencies with p
 
 4. Activate the environment:
     ```sh
-    source bin/activate
+    source bin/py3/bin/activate
     ```
 
 5. Install software and packages via pip and homebrew :
