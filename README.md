@@ -18,7 +18,7 @@ The idea is to create a workflow with of snakefiles, resolve dependencies with p
 
 2. Activate the environment (`deactivate` to deactivate):
     ```sh
-    source bin/py3/bin/activate
+    source bin/activate
     ```
 
 3. Install software and packages via pip and homebrew (edit whatever is necessary):
