@@ -1,24 +1,24 @@
 rule clean_map:
     shell:
-        "rm -rf results/map/"
+        "rm -rf " + map_dir
 
 
 
 rule clean_call:
     shell:
-        "rm -rf results/call/"
+        "rm -rf " + call_dir
 
 
 
 rule clean_report:
     shell:
-        "rm doc/report.html"
+        "rm -rf " + call_doc
 
 
 
 rule clean:
     shell:
-        "rm -rf "
-            "results/map/ "
-            "results/call/ "
-            "doc/report.html"
+        "rm -rf " +
+            map_dir + " " +
+            call_dir + " " +
+            call_doc
