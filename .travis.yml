@@ -1,6 +1,6 @@
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y build-essential curl git python-setuptools ruby pip3
+  - sudo apt-get install -y build-essential curl git python-setuptools ruby python3-pip
   - virtualenv --python=python3 bin/py3
   - git clone https://github.com/Linuxbrew.git .linuxbrew
 
