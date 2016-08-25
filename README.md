@@ -13,8 +13,8 @@ The idea is to create a workflow with of snakefiles, resolve dependencies with p
 1. Installation
 
     ```sh
-    git clone https://github.com/jlanga/smsk.git my_project # Clone
-    cd my_project
+    git clone https://github.com/jlanga/smsk.git smsk # Clone
+    cd smsk
     virtualenv --python=python3 bin/py3                     # Create an environment
     git clone https://github.com/Linuxbrew/brew.git         # Download linuxbrew
     ```
