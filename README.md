@@ -15,8 +15,7 @@ The idea is to create a workflow with of snakefiles, resolve dependencies with p
     ```sh
     git clone https://github.com/jlanga/smsk.git smsk # Clone
     cd smsk
-    virtualenv --python=python3 bin/py3                     # Create an environment
-    git clone https://github.com/Linuxbrew/brew.git         # Download linuxbrew
+    git clone https://github.com/Linuxbrew/brew.git .linuxbrew # Download linuxbrew
     ```
 
 2. Activate the environment (`deactivate` to deactivate):
@@ -91,7 +90,7 @@ smsk
         http://bin1.com/bin1.tar.gz
     tar xvf src/bin1.tar.gz
     cp src/bin1/bin1 bin/ # or link
-    
+
     # Tarball contains the source
     wget \
         --continue \
