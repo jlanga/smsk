@@ -55,6 +55,11 @@ deactivate () {
         export LD_LIBRARY_PATH
         unset _OLD_LD_LIBRARY_PATH
     fi
+    if ! [ -z "${_OLD_R_LIBS_USER+_}"] ; then # lib additions
+        R_LIBS_USER="$_OLD_R_LIBS_USER"
+        export R_LIBS_USER
+        unset _OLD_R_LIBS_USER
+    fi
 
     # This should detect bash and zsh, which have a hash command that must
     # be called to get it to forget past commands.  Without forgetting
@@ -179,4 +184,12 @@ if ! [ -z "${PERL_CPANM_OPT+_}" ] ; then
     export PERL_CPANM_OPT="--prompt --reinstall -l $(echo $PERL5LIB | cut -f 1 -d ":") --mirror  https://cpan.metacpan.org"
 else
     export PERL_CPANM_OPT="--prompt --reinstall -l $(echo $PERL5LIB | cut -f 1 -d ":") --mirror  https://cpan.metacpan.org"
+fi
+
+# R paths
+if ! [ -z "${R_LIBS_USER+_}" ] ; then
+    _OLD_R_LIBS_USER="$R_LIBS_USER"
+    export R_LIBS_USER="$PWD/.lib/R:$R_LIBS_USER"
+else
+    export R_LIBS_USER="$PWD/.lib/R"
 fi
