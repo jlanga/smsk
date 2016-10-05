@@ -4,11 +4,11 @@ configfile: "config.yaml"
 
 snakefiles = "scripts/snakefiles/"
 
-include: snakefiles + "folders.snakefile"
-include: snakefiles + "clean.snakefile"
-include: snakefiles + "raw.snakefile"
-include: snakefiles + "map.snakefile"
-include: snakefiles + "call.snakefile"
+include: snakefiles + "folders"
+include: snakefiles + "clean"
+include: snakefiles + "raw"
+include: snakefiles + "map"
+include: snakefiles + "call"
 
 rule all:
     input:
