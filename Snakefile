@@ -2,7 +2,7 @@ shell.prefix("set -euo pipefail;")
 configfile: "config.yaml"
 
 
-snakefiles = "scripts/snakefiles/"
+snakefiles = "bin/snakefiles/"
 
 include: snakefiles + "folders"
 include: snakefiles + "clean"
