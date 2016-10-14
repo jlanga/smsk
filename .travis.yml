@@ -6,9 +6,9 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y build-essential curl git
   - source bin/activate
-  - bash scripts/install/brew.sh
-  - bash scripts/install/from_brew.sh
-  - bash scripts/install/from_pip3.sh
+  - bash bin/install/brew.sh
+  - bash bin/install/from_brew.sh
+  - bash bin/install/from_pip3.sh
 
 script:
   - snakemake 
