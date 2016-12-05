@@ -1,12 +1,12 @@
 rule call_bcftools:
     input:
-        fa="data/genome.fa",
-        bam=expand(
-            map_dir + "{sample}.bam",
+        fa= raw_dir + "genome.fa",
+        bam= expand(
+            map_dir + "{sample}.sorted.bam",
             sample=config["samples"]
         ),
-        bai=expand(
-            map_dir + "{sample}.bam.bai",
+        bai= expand(
+            map_dir + "{sample}.sorted.bam.bai",
             sample=config["samples"]
         )
     output:
