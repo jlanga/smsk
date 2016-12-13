@@ -6,13 +6,13 @@
 
 This is a small skeleton to create Snakemake workflows. [Snakemake](https://bitbucket.org/snakemake/snakemake/wiki/Home) "is a workflow management system that aims to reduce the complexity of creating workflows by providing a fast and comfortable execution environment, together with a clean and modern specification language in python style."
 
-The idea is to create a workflow with of snakefiles, resolve dependencies with pip and brew, and
+The idea is to create a workflow with of snakefiles, resolve dependencies with `conda`, `pip`, tarballs, and if there is no other option, `docker`.
 
 ## 2. First steps
 
-Follow the contents of the `.travis.yml` file
+Follow the contents of the `.travis.yml` file:
 
-0. Install (Ana|mini)conda
+0. Install (ana|mini)conda
 
 - [Anaconda](https://www.continuum.io/downloads)
 
@@ -26,7 +26,7 @@ Follow the contents of the `.travis.yml` file
     bash bin/install/conda_env.sh  # Dowload packages and create an environment
     ```
 
-2. Activate the environment (`deactivate` to deactivate):
+2. Activate the environment (`source deactivate` to deactivate):
     ```sh
     source activate smsk
     ```
@@ -34,7 +34,7 @@ Follow the contents of the `.travis.yml` file
 3. Execute the pipeline:
 
     ```sh
-    snakemake
+    snakemake -j
     ```
 
 
@@ -45,10 +45,8 @@ The hierarchy of the folder is the one described in [A Quick Guide to Organizing
 
 ```
 smsk
-├── .linuxbrew: brew files
 ├── bin: your binaries, scripts, installation and virtualenv related files.
 ├── data: raw data, hopefully links to backup data.
-├── doc: logs, benchmarks, reports and figures.
 ├── README.md
 ├── results: processed data.
 └── src: additional source code, tarballs, etc.
@@ -126,14 +124,12 @@ As a rule of thumb, download python packages with `conda`, use `pip` whenever po
    pip install \
        snakemake
 
-
-
    wget \
        --continue \
        --output-document src/bin1.tar.gz \
        http://bin1.com/bin1.tar.gz
    tar xvf src/bin1.tar.gz
-   cp src/bin1/bin1 bin/ # or link
+   cp src/bin1/bin1 bin/  # or link
 
    wget \
        --continue \
