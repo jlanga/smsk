@@ -10,27 +10,28 @@ The idea is to create a workflow with of snakefiles, resolve dependencies with p
 
 ## 2. First steps
 
+Follow the contents of the `.travis.yml` file
+
+0. Install (Ana|mini)conda
+
+- [Anaconda](https://www.continuum.io/downloads)
+
+- [miniconda](http://conda.pydata.org/miniconda.html)
+
 1. Installation
 
     ```sh
-    git clone https://github.com/jlanga/smsk.git smsk # Clone
+    git clone https://github.com/jlanga/smsk.git smsk 
     cd smsk
-    git clone https://github.com/Linuxbrew/brew.git .linuxbrew # Download linuxbrew
+    bash bin/install/conda_env.sh  # Dowload packages and create an environment
     ```
 
 2. Activate the environment (`deactivate` to deactivate):
     ```sh
-    source bin/activate
+    source activate smsk
     ```
 
-3. Install software and packages via pip and homebrew (edit whatever is necessary):
-
-    ```sh
-    bash bin/install/brew.sh
-    bash bin/install/from_brew.sh
-    bash bin/install/from_pip3.sh
-    ```
-4. Execute the pipeline:
+3. Execute the pipeline:
 
     ```sh
     snakemake
@@ -67,19 +68,19 @@ smsk
 
 - End a workflow with a checkpoint rule: a rule that takes as input the result of the workflow (`map`). Use the subworkflow name as a folder name to store its results: `map` results go into `results/map/`.
 
-- Log everything. Store it next to the results: `rule/rest_of_rule_name_sample.log`. Store also benchmarks in JSON format.
+- Log everything. Store it next to the results: `rule/rest_of_rule_name_sample.log`. Store also benchmarks in JSON format. Consider even creating a subfolder if the total number of files is too high.
 
 - End it also with a clean rule that deletes everything of the workflow (`clean_map`).
 
 - Use the `bin/snakefiles/raw` to get/link your raw data, databases, etcetera. You should be careful when cleaning this folder.
 
-- Configuration for software, samples, etcetera, should be written in the `config.yaml` (instead of hardcoding them somewhere in a 1000 line script).
+- Configuration for software, samples, etcetera, should be written in the `config.yaml` (instead of hardcoding them somewhere in a 1000 line script). Command line software usually comes with mandatory parameters and optional ones. Ideally, write the mandatory ones in each snakefile and the optional in `config.yaml`.
 
-- `shell.prefix("set -euo pipefail;")` in the first line of the Snakefile makes the entire workflow to stop in case of even a warning or a exit error different of 0.
+- `shell.prefix("set -euo pipefail;")` in the first line of the Snakefile makes the entire workflow to stop in case of even a warning or a exit error different of 0. Maybe non necessary anymore (2016/12/13).
 
-- If compressing, use `pigz`, `pbzip2` or `pxz` instead of `gzip`. Get them from `brew`.
+- If compressing, use `pigz`, `pbzip2` or `pxz` instead of `gzip`. Get them from `conda`.
 
-- Install as many possible packages from `brew` and `pip` instead of using `apt`/`apt-get`: software is more recent this way, and you don't have to unzip tarballs or rely on your sysadmin. This way your workflow is more reproducible. The problem I see is that you cannot specify exact versions in `brew`.
+- Install as many possible packages from `conda` and `pip` instead of using `apt`/`apt-get`: software is more recent this way, and you don't have to unzip tarballs or rely on your sysadmin. This way your workflow is more reproducible. The problem I see is that you cannot specify exact versions in `brew`.
 
 - To install software from tarballs, download them into `src/` and copy them to `bin/` (and write the steps in `bin/install/from_tarball.sh`):
 
@@ -111,18 +112,21 @@ smsk
 
 - Use in command line applications long flags (`wget --continue $URL`): this way it is more readable. The computer does not care and is not going to work slower.
 
+- If software installation is too complex, consider pulling a docker image.
 
 
 ## 5. Considerations when installing software
 
-As a rule of thumb, download python packages with `pip`, use `brew` whenever possible, download binary tarballs into `src/`` and copy them to `bin/` or download the source tarball and compile it. Example:
+As a rule of thumb, download python packages with `conda`, use `pip` whenever possible, download binary tarballs into `src/` and copy them to `bin/` or download the source tarball and compile it. Example:
 
    ```
+   conda install \
+       samtools
+   
    pip install \
        snakemake
 
-   brew install \
-       samtools
+
 
    wget \
        --continue \
