@@ -23,7 +23,7 @@ Follow the contents of the `.travis.yml` file:
     ```sh
     git clone https://github.com/jlanga/smsk.git smsk 
     cd smsk
-    bash bin/install/conda_env.sh  # Dowload packages and create an environment
+    bash src/install/conda_env.sh  # Dowload packages and create an environment
     ```
 
 2. Activate the environment (`source deactivate` to deactivate):
@@ -41,22 +41,24 @@ Follow the contents of the `.travis.yml` file:
 
 ## 3. File organization
 
-The hierarchy of the folder is the one described in [A Quick Guide to Organizing Computational Biology Projects](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424):
+The hierarchy of the folder is the one described in [Good enough practices in scientific computing](https://swcarpentry.github.io/good-enough-practices-in-scientific-computing/):
 
 ```
 smsk
-├── bin: your binaries, scripts, installation and virtualenv related files.
-├── data: raw data, hopefully links to backup data.
+├── bin: external scripts/binaries
+├── data: raw data or links to backup data.
+├── doc: documentation.
 ├── README.md
 ├── results: processed data.
-└── src: additional source code, tarballs, etc.
+├── Snakefile: driver script of the project. Mostly links to src/snakefiles.
+└── src: project's source code, config.yaml, snakefiles tarballs, etc.
 ```
 
 
 
 ## 4. Writting workflow considerations
 
-- The workflow should be written in the main `Snakefile` and all the subworkflows in `bin/snakefiles`.
+- The workflow should be written in the main `Snakefile` and all the subworkflows in `src/snakefiles`.
 
 - Split into different snakefiles as much as possible. This way code supervision is more bearable and you can recycle them for other projects.
 
@@ -78,9 +80,9 @@ smsk
 
 - If compressing, use `pigz`, `pbzip2` or `pxz` instead of `gzip`. Get them from `conda`.
 
-- Install as many possible packages from `conda` and `pip` instead of using `apt`/`apt-get`: software is more recent this way, and you don't have to unzip tarballs or rely on your sysadmin. This way your workflow is more reproducible. The problem I see is that you cannot specify exact versions in `brew`.
+- Install as many possible packages from `conda` and `pip` instead of using `apt`/`apt-get`: software is more recent, and you don't have to unzip tarballs or rely on your sysadmin. This way your workflow is more reproducible. The problem I see with `brew` is that you cannot specify an exact version.
 
-- To install software from tarballs, download them into `src/` and copy them to `bin/` (and write the steps in `bin/install/from_tarball.sh`):
+- To install software from tarballs, download them into `src/` and copy binaries to `bin/` (and write the steps in `bin/install/from_tarball.sh`):
 
     ```sh
     # Binaries are already compiled
