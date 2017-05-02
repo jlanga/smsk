@@ -1,0 +1,6 @@
+## 2017-05-02
+
+* Introduced doc/changelog.txt
+* Accelerated build in Travis-CI
+* Moved everything from bin/ to src/
+* moved config.yaml to src/
