@@ -12,4 +12,4 @@ before_install:
 script: 
   - bash src/install/conda_env.sh
   - source activate smsk
-  - snakemake 
+  - snakemake -j
