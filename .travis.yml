@@ -9,7 +9,7 @@ before_install:
   - bash Miniconda3-latest-Linux-x86_64.sh -b
   - export PATH="/home/travis/miniconda3/bin:$PATH"
 
-script:
-  - bash bin/install/conda_env.sh
+script: 
+  - bash src/install/conda_env.sh
   - source activate smsk
   - snakemake 
