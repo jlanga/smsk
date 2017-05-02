@@ -1,5 +1,6 @@
 ## 2017-05-02
 
+* Renamed snakefiles to .py (to make things easier for text editors)
 * Introduced doc/changelog.txt
 * Accelerated build in Travis-CI
 * Moved everything from bin/ to src/
