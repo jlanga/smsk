@@ -12,6 +12,7 @@ cache:
     directories:
         - $HOME/data/download/
         - $HOME/miniconda3/
+        - $HOME/download/
 
 before_install:
   - bash .travis/travis_before_install.sh
