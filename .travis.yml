@@ -2,14 +2,23 @@ dist: trusty
 
 language: bash
 
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y build-essential curl git
-  - curl -O https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-  - bash Miniconda3-latest-Linux-x86_64.sh -b
-  - export PATH="/home/travis/miniconda3/bin:$PATH"
+addons:
+    apt_packages:
+        - build-essential
+        - git
+        - curl
 
-script: 
+cache:
+    directories:
+        - $HOME/data/download/
+        - $HOME/miniconda3/
+
+before_install:
+  - bash .travis/travis_before_install.sh
+  - export PATH="/home/travis/miniconda3/bin:$PATH"
+install:
   - bash src/install/conda_env.sh
+
+script:
   - source activate smsk
   - snakemake -j
