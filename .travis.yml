@@ -10,16 +10,20 @@ addons:
 
 cache:
     directories:
-        - $HOME/data/download/
-        - $HOME/miniconda3/
         - $HOME/download/
+        - $HOME/miniconda3/
 
 before_install:
   - bash .travis/travis_before_install.sh
-  - export PATH="/home/travis/miniconda3/bin:$PATH"
+
+
 install:
+  - export PATH="/home/travis/miniconda3/bin:$PATH"
+  - echo $PATH
   - bash src/install/conda_env.sh
 
 script:
+  - export PATH="/home/travis/miniconda3/bin:$PATH"
+  - echo $PATH
   - source activate smsk
   - snakemake -j
