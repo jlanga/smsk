@@ -1,6 +1,7 @@
 shell.prefix("set -euo pipefail;")
 configfile: "src/config.yaml"
 
+MAX_THREADS = config["max_threads"]
 
 snakefiles = "src/snakefiles/"
 
@@ -12,4 +13,4 @@ include: snakefiles + "call.py"
 
 rule all:
     input:
-        call_doc + "call.html"
+        REPORT_CALL + "call.html"

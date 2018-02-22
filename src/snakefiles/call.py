@@ -1,20 +1,22 @@
 rule call_bcftools:
     input:
-        fa= raw_dir + "genome.fa",
+        fa= RAW + "genome.fa",
         bam= expand(
-            map_dir + "{sample}.sorted.bam",
+            MAP + "{sample}.sorted.bam",
             sample=config["samples"]
         ),
         bai= expand(
-            map_dir + "{sample}.sorted.bam.bai",
+            MAP + "{sample}.sorted.bam.bai",
             sample=config["samples"]
         )
+    conda:
+        "call.yml"
     output:
-        protected(call_dir + "all.vcf")
+        protected(CALL + "all.vcf")
     log:
-        call_dir + "bcftools.log"
+        CALL + "bcftools.log"
     benchmark:
-        call_dir + "bcftools.json"
+        CALL + "bcftools.time"
     shell:
         "( samtools mpileup -g -f {input.fa} {input.bam} | "
         "bcftools call -mv - > {output} ) 2> {log}"
@@ -23,15 +25,15 @@ rule call_bcftools:
 
 rule call:
     input:
-        call_dir + "all.vcf"
+        CALL + "all.vcf"
 
 
 
 rule call_report:
     input:
-        "results/call/all.vcf"
+        CALL + "all.vcf"
     output:
-        protected(call_doc + "call.html")
+        protected(REPORT_CALL + "call.html")
     run:
         from snakemake.utils import report
         with open(input[0]) as vcf:

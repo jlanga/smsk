@@ -1,17 +1,19 @@
 rule map_bwa_index:
     input:
-        raw_dir + "genome.fa"
+        RAW + "genome.fa"
     output:
         expand(
-            raw_dir + "genome.fa.{extension}",
-            extension = "amb ann bwt pac sa".split(" ")
+            RAW + "genome.fa.{extension}",
+            extension="amb ann bwt pac sa".split(" ")
         )
     threads:
         1
     log:
-        map_dir + "bwa_index.log"
+        MAP + "bwa_index.log"
     benchmark:
-        map_dir + "bwa_index.json"
+        MAP + "bwa_index.time"
+    conda:
+        "map.yml"
     shell:
         "bwa index "
             "{input} "
@@ -21,27 +23,33 @@ rule map_bwa_index:
 
 rule map_bwa_sample:
     input:
-        genome = raw_dir + "genome.fa",
+        genome = RAW + "genome.fa",
         sample = lambda wildcards: config["samples"][wildcards.sample],
         ref_files = expand(
-            raw_dir + "genome.fa.{extension}",
-            extension = "amb ann bwt pac sa".split(" ")
+            RAW + "genome.fa.{extension}",
+            extension="amb ann bwt pac sa".split(" ")
         )
     output:
-        temp(
-            map_dir + "{sample}.unsorted.bam"
-        )
+        temp(MAP + "{sample}.unsorted.bam")
     params:
         rg="@RG\tID:{sample}\tSM:{sample}"
     log:
-        map_dir + "bwa_{sample}.log"
+        MAP + "bwa_{sample}.log"
     benchmark:
-        map_dir + "bwa_{sample}.json"
+        MAP + "bwa_{sample}.time"
     threads:
-        8
+        MAX_THREADS
+    conda:
+        "map.yml"
     shell:
-        "(bwa mem -R '{params.rg}' -t {threads} {input.genome} {input.sample} | "
-        "samtools view -Sb - "
+        "(bwa mem "
+            "-R '{params.rg}' "
+            "-t {threads} "
+            "{input.genome} "
+            "{input.sample} "
+        "| samtools view "
+            "-Sb "
+            "- "
         "> {output}) "
         "2> {log}"
 
@@ -49,13 +57,15 @@ rule map_bwa_sample:
 
 rule map_sort_sample:
     input:
-        map_dir + "{sample}.unsorted.bam"
+        MAP + "{sample}.unsorted.bam"
     output:
         protected("results/map/{sample}.sorted.bam")
     log:
-        map_dir + "sort_{sample}.log"
+        MAP + "sort_{sample}.log"
     benchmark:
-        map_dir + "sort_{sample}.json"
+        MAP + "sort_{sample}.time"
+    conda:
+        "map.yml"
     shell:
         "samtools sort "
             "-T $(mktemp --dry-run) "
@@ -67,13 +77,15 @@ rule map_sort_sample:
 
 rule map_index_sample:
     input:
-        map_dir + "{sample}.sorted.bam"
+        MAP + "{sample}.sorted.bam"
     output:
-        protected(map_dir + "{sample}.sorted.bam.bai")
+        protected(MAP + "{sample}.sorted.bam.bai")
     log:
-        map_dir + "index_{sample}.log"
+        MAP + "index_{sample}.log"
     benchmark:
-        map_dir + "index_{sample}.json"
+        MAP + "index_{sample}.time"
+    conda:
+        "map.yml"
     shell:
         "samtools index {input} > {log} 2>&1"
 
@@ -81,6 +93,6 @@ rule map_index_sample:
 rule map:
     input:
         expand(
-            map_dir + "{sample}.sorted.bam.bai",
-            sample = config["samples"]
+            MAP + "{sample}.sorted.bam.bai",
+            sample=config["samples"]
         )
