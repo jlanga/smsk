@@ -14,15 +14,18 @@ cache:
         - $HOME/miniconda3/
 
 before_install:
-  - bash .travis/travis_before_install.sh
+    - bash .travis/travis_before_install.sh
 
 
 install:
-  - export PATH="/home/travis/miniconda3/bin:$PATH"
-  - echo $PATH
-  - conda install --yes -c bioconda snakemake
+    - export PATH="/home/travis/miniconda3/bin:$PATH"
+    - echo $PATH
+    - conda install --yes -c bioconda snakemake
 
 script:
-  - export PATH="/home/travis/miniconda3/bin:$PATH"
-  - echo $PATH
-  - snakemake --use-conda -j
+    - export PATH="/home/travis/miniconda3/bin:$PATH"
+    - echo $PATH
+    - snakemake --use-conda -j
+
+after_failure:
+    - find results -name "*.log" -type f | xargs ls -tr | xargs tail -n+2
