@@ -20,7 +20,7 @@ before_install:
 install:
   - export PATH="/home/travis/miniconda3/bin:$PATH"
   - echo $PATH
-  - conda install -c bioconda snakemake
+  - conda install --yes -c bioconda snakemake
 
 script:
   - export PATH="/home/travis/miniconda3/bin:$PATH"
