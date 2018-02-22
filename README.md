@@ -23,18 +23,12 @@ Follow the contents of the `.travis.yml` file:
     ```sh
     git clone https://github.com/jlanga/smsk.git smsk 
     cd smsk
-    bash src/install/conda_env.sh  # Dowload packages and create an environment
     ```
 
-2. Activate the environment (`source deactivate` to deactivate):
-    ```sh
-    source activate smsk
-    ```
-
-3. Execute the pipeline:
+2. Execute the pipeline:
 
     ```sh
-    snakemake -j
+    snakemake --use-conda -j
     ```
 
 
