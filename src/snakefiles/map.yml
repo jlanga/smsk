@@ -1,3 +1,5 @@
+# Environment file for read mapping
+---
 channels:
  - bioconda
 dependencies:
