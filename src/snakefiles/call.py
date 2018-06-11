@@ -1,11 +1,14 @@
 rule call_bcftools:
+    """
+    Generate VCF with genotypes and call SNPs with bcftools
+    """
     input:
-        fa= RAW + "genome.fa",
-        bam= expand(
+        fa = RAW + "genome.fa",
+        bam = expand(
             MAP + "{sample}.sorted.bam",
             sample=samples["samples"]
         ),
-        bai= expand(
+        bai = expand(
             MAP + "{sample}.sorted.bam.bai",
             sample=samples["samples"]
         )
@@ -18,18 +21,22 @@ rule call_bcftools:
     benchmark:
         CALL + "bcftools.bmk"
     shell:
-        "( samtools mpileup -g -f {input.fa} {input.bam} | "
-        "bcftools call -mv - > {output} ) 2> {log}"
-
+        "( samtools mpileup -g -f {input.fa} {input.bam} "
+        "| bcftools call -mv - > {output} ) 2> {log}"
 
 
 rule call:
+    """
+    Checkpoint rule. Generate all.vcf
+    """
     input:
         CALL + "all.vcf"
 
 
-
 rule call_report:
+    """
+    Make a simple report in MarkDown for all.vcf
+    """
     input:
         CALL + "all.vcf"
     output:

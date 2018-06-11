@@ -1,4 +1,5 @@
 rule raw_download_tarball:
+    """Download tarball with reads and reference"""
     output:
         tarball = RAW + "snakemake-tutorial-data.tar.gz"
     threads:
@@ -10,15 +11,12 @@ rule raw_download_tarball:
     benchmark:
         RAW + "download_tarball.bmk"
     shell:
-        "wget "
-            "--continue "
-            "--output-document {output.tarball} "
-            "{params.url} "
+        "wget --continue --output-document {output.tarball} {params.url} "
         "2> {log} 1>&2"
 
 
-
 rule raw_extract_genome:
+    """Extract from the tarball just the reference"""
     input:
         tarball = RAW + "snakemake-tutorial-data.tar.gz"
     output:
@@ -28,20 +26,22 @@ rule raw_extract_genome:
     benchmark:
         RAW + "extract_genome.bmk"
     shell:
-        "tar "
-            "--extract "
-            "--verbose "
-            "--file {input.tarball} "
-            "--directory {RAW} "
-            "--strip 1 "
-            "data/genome.fa "
-        "2> {log} 1>&2"
-
+        """
+        tar \
+            --extract \
+            --verbose \
+            --file {input.tarball} \
+            --directory {RAW} \
+            --strip 1 \
+            data/genome.fa \
+        2> {log} 1>&2
+        """
 
 
 rule raw_extract_samples:
+    """Extract from the tarball the fastq files"""
     input:
-        tarball =  RAW + "snakemake-tutorial-data.tar.gz"
+        tarball = RAW + "snakemake-tutorial-data.tar.gz"
     output:
         a = touch(RAW + "samples/A.fastq"),
         b = touch(RAW + "samples/B.fastq")
@@ -53,11 +53,13 @@ rule raw_extract_samples:
     benchmark:
         RAW + "extract_genome.time"
     shell:
-        "tar "
-            "--extract "
-            "--verbose "
-            "--file {input.tarball} "
-            "--directory {RAW} "
-            "--strip 1 "
-            "{params.a_path} {params.b_path} "
-        "2> {log} 1>&2"
+        """
+        tar \
+            --extract \
+            --verbose \
+            --file {input.tarball} \
+            --directory {RAW} \
+            --strip 1 \
+            {params.a_path} {params.b_path} \
+        2> {log} 1>&2
+        """
