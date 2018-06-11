@@ -1,6 +1,9 @@
+# Configuration file with the sample names
+---
 samples:
     A: results/raw/samples/A.fastq
     B: results/raw/samples/B.fastq
 
 urls:
-    tarball: https://bitbucket.org/snakemake/snakemake/downloads/snakemake-tutorial-data.tar.gz
+    tarball: >
+        https://bitbucket.org/snakemake/snakemake/downloads/snakemake-tutorial-data.tar.gz

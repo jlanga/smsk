@@ -1,1 +1,3 @@
+# Configuration file with the execution parameters
+---
 max_threads: 32
