@@ -25,6 +25,8 @@ do_flake8() {
 do_shellcheck(){
     shellcheck \
         src/pre-commit \
+        src/run \
+        src/run_cluster \
         "$(find src/ -name "*.sh" -type f)"
 }
 

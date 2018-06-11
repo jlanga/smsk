@@ -1,0 +1,15 @@
+{
+    "__default__" :
+    {
+        "time" : "06:00:00",
+        "mem": 1024
+    },
+    "map_bwa" :
+    {
+        "mem": 6000
+    },
+    "call_bcftools" :
+    {
+        "time": 6000
+    }
+}

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cluster_string="sbatch "
+cluster_string+="--job-name {rule} "
+cluster_string+="--cpus-per-task {threads} "
+cluster_string+="--mem {cluster.mem} "
+cluster_string+="--time {cluster.time} "
+
+# Run it in a cluster
+snakemake \
+    --jobs 999 \
+    --use-conda \
+    --cluster-config cluster.json \
+    --cluster
