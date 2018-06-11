@@ -24,7 +24,7 @@ rule map_bwa_index:
 rule map_bwa_sample:
     input:
         genome = RAW + "genome.fa",
-        sample = lambda wildcards: config["samples"][wildcards.sample],
+        sample = lambda wildcards: samples["samples"][wildcards.sample],
         ref_files = expand(
             RAW + "genome.fa.{extension}",
             extension="amb ann bwt pac sa".split(" ")
@@ -83,7 +83,7 @@ rule map_index_sample:
     log:
         MAP + "index_{sample}.log"
     benchmark:
-        MAP + "index_{sample}.time"
+        MAP + "index_{sample}.bmk"
     conda:
         "map.yml"
     shell:
@@ -94,5 +94,5 @@ rule map:
     input:
         expand(
             MAP + "{sample}.sorted.bam.bai",
-            sample=config["samples"]
+            sample=samples["samples"]
         )

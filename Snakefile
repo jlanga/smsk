@@ -1,7 +1,17 @@
 shell.prefix("set -euo pipefail;")
-configfile: "src/config.yaml"
 
-MAX_THREADS = config["max_threads"]
+configfile: "features.yml"
+features = config.copy()
+
+configfile: "samples.yml"
+samples = config.copy()
+
+configfile: "params.yml"
+params = config.copy()
+
+del config
+
+MAX_THREADS = params["max_threads"]
 
 snakefiles = "src/snakefiles/"
 

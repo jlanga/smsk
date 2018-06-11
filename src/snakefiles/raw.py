@@ -4,11 +4,11 @@ rule raw_download_tarball:
     threads:
         1
     params:
-        url = config["urls"]["tarball"]
+        url = samples["urls"]["tarball"]
     log:
         RAW + "download_tarball.log"
     benchmark:
-        RAW + "download_tarball.time"
+        RAW + "download_tarball.bmk"
     shell:
         "wget "
             "--continue "
@@ -26,7 +26,7 @@ rule raw_extract_genome:
     log:
         RAW + "extract_genome.log"
     benchmark:
-        RAW + "extract_genome.time"
+        RAW + "extract_genome.bmk"
     shell:
         "tar "
             "--extract "

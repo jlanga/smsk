@@ -4,5 +4,3 @@ samples:
 
 urls:
     tarball: https://bitbucket.org/snakemake/snakemake/downloads/snakemake-tutorial-data.tar.gz
-
-max_threads: 32

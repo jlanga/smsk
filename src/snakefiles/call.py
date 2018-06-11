@@ -3,11 +3,11 @@ rule call_bcftools:
         fa= RAW + "genome.fa",
         bam= expand(
             MAP + "{sample}.sorted.bam",
-            sample=config["samples"]
+            sample=samples["samples"]
         ),
         bai= expand(
             MAP + "{sample}.sorted.bam.bai",
-            sample=config["samples"]
+            sample=samples["samples"]
         )
     conda:
         "call.yml"
@@ -16,7 +16,7 @@ rule call_bcftools:
     log:
         CALL + "bcftools.log"
     benchmark:
-        CALL + "bcftools.time"
+        CALL + "bcftools.bmk"
     shell:
         "( samtools mpileup -g -f {input.fa} {input.bam} | "
         "bcftools call -mv - > {output} ) 2> {log}"
