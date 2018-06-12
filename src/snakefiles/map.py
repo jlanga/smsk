@@ -12,7 +12,7 @@ rule map_bwa_index:
     log:
         MAP + "bwa_index.log"
     benchmark:
-        MAP + "bwa_index.time"
+        MAP + "bwa_index.bmk"
     conda:
         "map.yml"
     shell:
@@ -42,7 +42,7 @@ rule map_bwa:
     log:
         MAP + "bwa_{sample}.log"
     benchmark:
-        MAP + "bwa_{sample}.time"
+        MAP + "bwa_{sample}.bmk"
     threads:
         MAX_THREADS
     conda:
@@ -65,7 +65,7 @@ rule map_sort:
     log:
         MAP + "sort_{sample}.log"
     benchmark:
-        MAP + "sort_{sample}.time"
+        MAP + "sort_{sample}.bmk"
     conda:
         "map.yml"
     shell:

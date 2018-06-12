@@ -51,7 +51,7 @@ rule raw_extract_samples:
     log:
         RAW + "extract_genome.log"
     benchmark:
-        RAW + "extract_genome.time"
+        RAW + "extract_genome.bmk"
     shell:
         """
         tar \
