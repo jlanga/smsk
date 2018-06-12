@@ -13,4 +13,4 @@ snakemake \
     --jobs 999 \
     --use-conda \
     --cluster-config cluster.json \
-    --cluster
+    --cluster "$cluster_string"

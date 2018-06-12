@@ -1,3 +1,4 @@
 .snakemake/
 results/*
 reports
+slurm-*
