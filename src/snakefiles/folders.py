@@ -1,3 +1,7 @@
+"""
+Folder variables
+"""
+
 RAW = "results/raw/"
 MAP = "results/map/"
 CALL = "results/call/"

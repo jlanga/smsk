@@ -11,23 +11,52 @@ addons:
         - curl
 
 cache:
+    timeout: 1000
     directories:
-        - $HOME/download/
-        - $HOME/miniconda3/
+        - "$HOME/miniconda3_$TRAVIS_OS_NAME"
+        - "$TRAVIS_BUILD_DIR/.snakemake/conda"  # snakemake envs
 
-before_install:
-    - bash .travis/travis_before_install.sh
+before_install: |
+    url="https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+    if [[ -d "$HOME"/miniconda3_"$TRAVIS_OS_NAME"/bin ]]; then
+        echo "miniconda already installed."
+    else
+        echo "Installing miniconda."
+        mkdir -p "$HOME"/download
+        wget \
+            --continue \
+            --output-document "$HOME"/download/miniconda_"$TRAVIS_OS_NAME".sh \
+            $url
+        chmod +x "$HOME"/download/miniconda_"$TRAVIS_OS_NAME".sh
+        "$HOME"/download/miniconda_"$TRAVIS_OS_NAME".sh \
+            -u \
+            -b \
+            -p "$HOME"/miniconda3_"$TRAVIS_OS_NAME"
+        "$HOME"/miniconda3_"$TRAVIS_OS_NAME"/bin/conda clean --all --yes
+        echo "local_repodata_ttl: 1800" >> ~/.condarc
+    fi
 
 
-install:
-    - export PATH="/home/travis/miniconda3/bin:$PATH"
-    - echo $PATH
-    - conda install --yes -c bioconda snakemake
+install: |
+    export PATH="$HOME"/miniconda3_"$TRAVIS_OS_NAME"/bin:"$PATH"
+    echo "$PATH"
+    conda config --add channels defaults
+    conda config --add channels conda-forge
+    conda config --add channels bioconda
+    conda install --quiet --yes --channel bioconda snakemake=5.3.0
+    snakemake --use-conda --create-envs-only
+    conda clean --all --yes
 
-script:
-    - export PATH="/home/travis/miniconda3/bin:$PATH"
-    - echo $PATH
-    - snakemake --use-conda -j
+script: |
+    echo $PATH
+    python --version
+    export PATH="$HOME"/miniconda3_"$TRAVIS_OS_NAME"/bin:"$PATH"
+    snakemake --use-conda --jobs 2
+    # snakemake --cleanup-conda
+
+before_cache: |
+    CONDA_PATH="$HOME"/miniconda3_"$TRAVIS_OS_NAME"
+    conda clean --all --yes
+    rm -rf "$CONDA_PATH"/{locks,pkgs,var,conda-meta/history}
 
 after_failure:
-    - find results -name "*.log" -type f | xargs ls -tr | xargs tail -n+2
