@@ -41,8 +41,8 @@ install: |
     export PATH="$HOME"/miniconda3_"$TRAVIS_OS_NAME"/bin:"$PATH"
     echo "$PATH"
     conda config --add channels defaults
-    conda config --add channels conda-forge
     conda config --add channels bioconda
+    conda config --add channels conda-forge
     conda install --quiet --yes --channel bioconda snakemake=5.3.0
     snakemake --use-conda --create-envs-only
     conda clean --all --yes
