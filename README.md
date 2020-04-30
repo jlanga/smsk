@@ -43,6 +43,12 @@ Follow the contents of the `.travis.yml` file:
     snakemake --use-conda -j
     ```
 
+6. (Optional) Run the pipeline inside a Docker container:
+
+    ```sh
+    bash src/run_docker.sh
+    ```
+
 ## 3. File organization
 
 The hierarchy of the folder is the one described in [Good enough practices in scientific computing](https://swcarpentry.github.io/good-enough-practices-in-scientific-computing/):
@@ -152,6 +158,9 @@ feature in `bash`: `cmd <(gzip -dc fa.gz)` and `cmd >(gzip -9 > file.gz)`. The p
 readable. The computer does not care and is not going to work slower.
 
 - If software installation is too complex, consider pulling a docker image.
+
+
+
 
 ## Bibliography
 
