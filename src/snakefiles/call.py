@@ -12,14 +12,10 @@ rule call_bcftools:
             MAP + "{sample}.sorted.bam.bai",
             sample=samples["samples"]
         )
-    conda:
-        "call.yml"
-    output:
-        protected(CALL + "all.vcf")
-    log:
-        CALL + "bcftools.log"
-    benchmark:
-        CALL + "bcftools.bmk"
+    output: protected(CALL + "all.vcf")
+    log: CALL + "bcftools.log"
+    benchmark: CALL + "bcftools.bmk"
+    conda: "call.yml"
     shell:
         "( samtools mpileup -g -f {input.fa} {input.bam} "
         "| bcftools call -mv - > {output} ) 2> {log}"

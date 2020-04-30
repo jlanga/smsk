@@ -2,14 +2,11 @@ rule raw_download_tarball:
     """Download tarball with reads and reference"""
     output:
         tarball = RAW + "snakemake-tutorial-data.tar.gz"
-    threads:
-        1
+    log: RAW + "download_tarball.log"
+    benchmark: RAW + "download_tarball.bmk"
+    conda: "raw.yml"
     params:
         url = samples["urls"]["tarball"]
-    log:
-        RAW + "download_tarball.log"
-    benchmark:
-        RAW + "download_tarball.bmk"
     shell:
         "wget --continue --output-document {output.tarball} {params.url} "
         "2> {log} 1>&2"
@@ -21,10 +18,9 @@ rule raw_extract_genome:
         tarball = RAW + "snakemake-tutorial-data.tar.gz"
     output:
         touch(RAW + "genome.fa")
-    log:
-        RAW + "extract_genome.log"
-    benchmark:
-        RAW + "extract_genome.bmk"
+    log: RAW + "extract_genome.log"
+    benchmark: RAW + "extract_genome.bmk"
+    conda: "raw.yml"
     shell:
         """
         tar \
@@ -45,13 +41,12 @@ rule raw_extract_samples:
     output:
         a = touch(RAW + "samples/A.fastq"),
         b = touch(RAW + "samples/B.fastq")
+    log: RAW + "extract_genome.log"
+    benchmark: RAW + "extract_genome.bmk"
+    conda: "raw.yml"
     params:
         a_path = "data/samples/A.fastq",
         b_path = "data/samples/B.fastq"
-    log:
-        RAW + "extract_genome.log"
-    benchmark:
-        RAW + "extract_genome.bmk"
     shell:
         """
         tar \

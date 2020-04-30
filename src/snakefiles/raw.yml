@@ -1,0 +1,10 @@
+# Conda env for rule raw
+---
+channels:
+    - conda-forge
+    - bioconda
+    - defaults
+dependencies:
+    - tar
+    - gzip
+    - wget
