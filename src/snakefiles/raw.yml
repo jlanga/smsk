@@ -6,5 +6,5 @@ channels:
     - defaults
 dependencies:
     - tar
-    - gzip
+    - zlib
     - wget
