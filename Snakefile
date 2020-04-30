@@ -19,11 +19,11 @@ MAX_THREADS = params["max_threads"]
 
 # Import ubworkflows
 snakefiles = "src/snakefiles/"
-include: snakefiles + "folders.py"
-include: snakefiles + "clean.py"
-include: snakefiles + "raw.py"
-include: snakefiles + "map.py"
-include: snakefiles + "call.py"
+include: snakefiles + "folders.smk"
+include: snakefiles + "clean.smk"
+include: snakefiles + "raw.smk"
+include: snakefiles + "map.smk"
+include: snakefiles + "call.smk"
 
 rule all:
     """
